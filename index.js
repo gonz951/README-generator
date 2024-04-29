@@ -117,7 +117,13 @@ Or email: ${email}
 `
 
 // TODO: Create a function to initialize app
-function init() {}
+const init = () => {
+    questions()
+
+    .then((answers) => writeFile('README.md', writeREADME(answers)))
+    .then(() => console.log('Successfully wrote to README.md'))
+    .catch((err) => console.error(err));
+};
 
 // Function call to initialize app
 init();
