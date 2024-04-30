@@ -1,11 +1,14 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown');
+const fs = require('fs');
 
-const { writeFile } = require('fs').promises;
+// const { writeFile } = require('fs').promises;
 
 // TODO: Create an array of questions for user input
-const questions = () => {
-    return inquirer.prompt([
+const questions = 
+    
+     [
         {
             name: 'name',
             message: 'What is the name of your project?',
@@ -35,7 +38,7 @@ const questions = () => {
             name: 'license',
             message: 'Which license would you like to use?',
             type: 'list',
-            choices: [''],
+            choices: ['MIT', 'APACHE 2.0', 'none'],
             // ! FIGURE OUT CHOICES LATER
         },  
         {
@@ -58,71 +61,27 @@ const questions = () => {
             message: 'And your email address?',
             type: 'input'
         },
-     ]);
-};
+     ]
+    
 
 // TODO: Create a function to write README file
-const writeREADME = ({ name, description, instructions, link, usage, contribution, tests, user, email }) => `
-# ${name}
+function writeToFile(data) {
+    const readMeContent = generateMarkdown(data)
 
-// BADGE SHOULD BE HERE !!
-
-## Description
-
-${description}
-
-## Table of Contents 
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-- [Contribute](#how to contribute)
-- [Tests](#tests)
-- [Questions](#questions)
-
-## Installation
-
-${instructions}${link}
-
-## Usage
-
-${usage}
-
-To add a screenshot, create an 'assets/images' folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    '''md
-    ![alt text](assets/images/screenshot.png)
-    '''
-
-## License
-
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
-
-## How to Contribute
-
-${contribution}
-
-## Tests
-
-${tests}
-
-## Questions
-
-If you have any questions, please contact me through either:
-My GitHub: https://github.com/${user}
-Or email: ${email}
-`
+    fs.writeFile('./utils/README.md', readMeContent, (err) =>
+        err ? console.log(err) : console.log('Successfully created README!')
+    )
+}
 
 // TODO: Create a function to initialize app
-const init = () => {
-    questions()
+function init() {
+    inquirer.prompt(questions).then((data) => {
+        writeToFile(data)
+    })
 
-    .then((answers) => writeFile('README.md', writeREADME(answers)))
-    .then(() => console.log('Successfully wrote to README.md'))
-    .catch((err) => console.error(err));
+    // .then((answers) => writeFile('README.md', writeREADME(answers)))
+    // .then(() => console.log('Successfully wrote to README.md'))
+    // .catch((err) => console.error(err));
 };
 
 // Function call to initialize app
