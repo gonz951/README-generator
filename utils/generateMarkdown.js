@@ -16,8 +16,7 @@ function renderLicenseBadge(license) {
     return badge;
   };
 }
-// renderLicenseBadge()
-//console.log(license)
+
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
@@ -41,7 +40,6 @@ function renderLicenseLink(license) {
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   let section = ''
-
   if (license = 'MIT') {
     section = `MIT License
 
@@ -952,9 +950,6 @@ Public License instead of this License.  But first, please read
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  // renderLicenseBadge(data.license)
-  // renderLicenseLink(data.license)
-  // renderLicenseSection(data.license)
   return `# ${data.name}
 
 ${renderLicenseBadge(data.license)}
