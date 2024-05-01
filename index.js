@@ -3,8 +3,6 @@ const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
 const fs = require('fs');
 
-// const { writeFile } = require('fs').promises;
-
 // TODO: Create an array of questions for user input
 const questions = 
     
@@ -39,7 +37,6 @@ const questions =
             message: 'Which license would you like to use?',
             type: 'list',
             choices: ['MIT', 'APACHE 2.0', 'GNU GPL','none'],
-            // ! FIGURE OUT CHOICES LATER
         },  
         {
             name: 'contribution',
@@ -78,10 +75,6 @@ function init() {
     inquirer.prompt(questions).then((data) => {
         writeToFile(data)
     })
-
-    // .then((answers) => writeFile('README.md', writeREADME(answers)))
-    // .then(() => console.log('Successfully wrote to README.md'))
-    // .catch((err) => console.error(err));
 };
 
 // Function call to initialize app
